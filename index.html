@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .item-name {
+            flex-grow: 1;
+        }
+        .item-price {
+            font-weight: bold;
+        }
+        .cart {
+          border: 1px solid #ddd;
+          padding: 10px;
+          margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Biryani & Fried Rice</h2>
+        <div class="menu-item">
+            <span class="item-name">Chicken Biryani</span>
+            <span class="item-price">Rs 120</span>
+            <button onclick="addToCart('Chicken Biryani', 120)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <span class="item-name">Mutton Biryani</span>
+            <span class="item-price">Rs 120</span>
+            <button onclick="addToCart('Mutton Biryani', 120)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <span class="item-name">Chicken Fried Rice</span>
+            <span class="item-price">Rs 120</span>
+            <button onclick="addToCart('Chicken Fried Rice', 120)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <span class="item-name">Mutton Fried Rice</span>
+            <span class="item-price">Rs 120</span>
+            <button onclick="addToCart('Mutton Fried Rice', 120)">Add to Cart</button>
+        </div>
+
+        <h2>Soups</h2>
+        <div class="menu-item">
+            <span class="item-name">Chicken Manchow Soup</span>
+            <span class="item-price">Rs 70</span>
+            <button onclick="addToCart('Chicken Manchow Soup', 70)">Add to Cart</button>
+        </div>
+
+        <h2>Chicken Starters</h2>
+        <div class="menu-item">
+            <span class="item-name">All types of Chicken starters Available</span>
+            <span class="item-price">Rs 110</span>
+            <button onclick="addToCart('Chicken Starters', 110)">Add to Cart</button>
+        </div>
+
+        <h2>Milkshakes, Ice Creams & Beverages</h2>
+        <div class="menu-item">
+            <span class="item-name">Milkshake/Ice cream/Beverages</span>
+            <span class="item-price">Rs 100</span>
+            <button onclick="addToCart('Milkshake/Ice cream/Beverages', 100)">Add to Cart</button>
+        </div>
+
+        <div class="cart">
+            <h2>Cart</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: Rs <span id="cart-total">0</span></p>
+            <button onclick="checkout()">Checkout</button>
+            <p id="checkout-message" style="color: green;"></p>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(itemName, price) {
+            cart.push({ name: itemName, price: price });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            let total = 0;
+
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - Rs ${item.price}`;
+                cartItems.appendChild(li);
+                total += item.price;
+            });
+
+            cartTotal.textContent = total;
+        }
+
+        function checkout() {
+            document.getElementById('cart-items').innerHTML = "";
+            document.getElementById('cart-total').innerHTML = "0";
+            cart = [];
+            document.getElementById('checkout-message').textContent = "Thank you for ordering!";
+            setTimeout(function(){
+                document.getElementById('checkout-message').textContent = "";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
